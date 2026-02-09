@@ -1,6 +1,6 @@
 #include "search.h"
 
-int sequencial_search(int arr[], int length, int target) {
+int sequential_search(int arr[], int length, int target) {
     for (int i = 0; i < length; i++) {
         if (arr[i] == target) return i;
     }

@@ -22,7 +22,7 @@ struct BinarySearchTree {
     Node *(*min)(BinarySearchTree *self);
     Node *(*max)(BinarySearchTree *self);
     bool (*search)(BinarySearchTree *self, int key);
-    void (*remove)(BinarySearchTree **self, int key);
+    void (*remove)(BinarySearchTree *self, int key);
 };
 
 BinarySearchTree *new_binary_search_tree();

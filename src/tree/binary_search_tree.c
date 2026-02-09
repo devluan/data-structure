@@ -136,8 +136,8 @@ Node *remove_node(Node *node, int key) {
     }
 }
 
-void remove(BinarySearchTree **tree, int key) {
-    (*tree)->root = remove_node((*tree)->root, key);
+void remove(BinarySearchTree *tree, int key) {
+    tree->root = remove_node(tree->root, key);
 }
 
 BinarySearchTree *new_binary_search_tree() {

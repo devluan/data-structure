@@ -17,25 +17,25 @@ int main() {
 
     start = clock();
     for (int i = 0; i < length; i++) {
-         result = sequential_search(arr, length, i);
+         result = sequentialSearch(arr, length, i);
     }
     end = clock();
 
-    double sequential_search_time = ((double) end - start) / CLOCKS_PER_SEC;
+    double sequentialSearchTime = ((double) end - start) / CLOCKS_PER_SEC;
 
     start = clock();
     for (int i = 0; i < length; i++) {
-        result = binary_search(arr, length, i);
+        result = binarySearch(arr, length, i);
     }
     end = clock();
 
-    double binary_search_time = ((double) end - start) / CLOCKS_PER_SEC;
+    double binarySearchTime = ((double) end - start) / CLOCKS_PER_SEC;
 
     printf("-------------------------------------------------\n");
     printf("%-20s Total time (s)\n", "Algorithm");
     printf("-------------------------------------------------\n");
-    printf("%-20s %.6f\n", "Sequential Search", sequential_search_time);
-    printf("%-20s %.6f\n", "Binary Search", binary_search_time);
+    printf("%-20s %.6f\n", "Sequential Search", sequentialSearchTime);
+    printf("%-20s %.6f\n", "Binary Search", binarySearchTime);
 
     free(arr);
     return 0;

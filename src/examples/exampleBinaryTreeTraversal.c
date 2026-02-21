@@ -1,12 +1,12 @@
-#include "../tree/binary_search_tree.h"
+#include "../tree/BinarySearchTree.h"
 #include <stdio.h>
 
-void print_node(int key) {
+void printNode(int key) {
     printf("%d\t", key);
 }
 
 int main() {
-    BinarySearchTree *tree = new_binary_search_tree();
+    BinarySearchTree *tree = createBinarySearchTree();
 
     int arr[] = {20, 3, 1, 8, 7, 21, 31, 40, 30};
     int length = sizeof(arr) / sizeof(int);
@@ -19,16 +19,16 @@ int main() {
     printf("---------------------|------------------------------------------------------------------------\n");
 
     printf("%-20s | ", "In-order");
-    tree->in_order_traverse(tree, print_node);
+    tree->inOrderTraverse(tree, printNode);
     printf("\n");
 
     printf("%-20s | ", "Pre-order");
-    tree->pre_order_traverse(tree, print_node);
+    tree->preOrderTraverse(tree, printNode);
     printf("\n");
 
     printf("%-20s | ", "Post-order");
-    tree->post_order_traverse(tree, print_node);
+    tree->postOrderTraverse(tree, printNode);
     printf("\n");
 
-    free_binary_search_tree(&tree);
+    freeBinarySearchTree(&tree);
 }

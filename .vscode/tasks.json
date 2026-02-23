@@ -9,6 +9,7 @@
                 "-g",
                 "${file}",
                 "${workspaceFolder}/src/search/search.c",
+                "${workspaceFolder}/src/sort/sort.c",
                 "${workspaceFolder}/src/tree/BinarySearchTree.c",
                 "-o",
                 "${workspaceFolder}/out/${fileBasenameNoExtension}"

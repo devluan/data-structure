@@ -13,38 +13,36 @@ void bubbleSort(int arr[], int length) {
     }
 }
 
-static int *slice(int arr[], int start, int end) {
+static void merge(int arr[], int temp[], int start, int end) {
     int length = end - start;
-    int *result = malloc(length * sizeof(int));
-    for (int i = 0; i < length; i++) {
-        result[i] = arr[start + i];
-    }
-    return result;
-}
-
-static void merge(int arr[], int left, int middle, int right) {
-    int *l = slice(arr, left, middle), *r = slice(arr, middle, right);
-    int lenL = middle - left, lenR = right - middle;
-    int i = 0, j = 0, k = left;
-    while(i < lenL && j < lenR) {
-        arr[k++] = l[i] <= r[j] ? l[i++] : r[j++];
-    }
-    while(i < lenL) {
-        arr[k++] = l[i++];
-    }
-    while(j < lenR) {
-        arr[k++] = r[j++];
-    }
-    free(l);
-    free(r);
-}
-
-void mergeSort(int arr[], int left, int right) {
-    int length = right - left;
     if (length > 1) {
-        int middle = left + (right - left) / 2;
-        mergeSort(arr, left, middle);
-        mergeSort(arr, middle, right);
-        merge(arr, left, middle, right);
+        int mid = start + (end - start) / 2;
+        merge(arr, temp, start, mid);
+        merge(arr, temp, mid, end);
+        for (int i = start; i < mid; i++) {
+            temp[i] = arr[i];
+        }
+        for (int i = mid; i < end; i++) {
+            temp[i] = arr[i];
+        }
+        int i = start;
+        int j = mid;
+        int k = start;
+        while(i < mid && j < end) {
+            arr[k++] = temp[i] <= temp[j] ? temp[i++] : temp[j++];
+        }
+        while(i < mid) {
+            arr[k++] = temp[i++];
+        }
+        while(j < end) {
+            arr[k++] = temp[j++];
+        }
     }
+}
+
+void mergeSort(int arr[], int length) {
+    int *temp = malloc(length * sizeof(int));
+    if (!temp) return;
+    merge(arr, temp, 0, length);
+    free(temp);
 }

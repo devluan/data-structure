@@ -3,6 +3,6 @@
 
 void bubbleSort(int arr[], int length);
 
-void mergeSort(int arr[], int l, int r);
+void mergeSort(int arr[], int length);
 
 #endif

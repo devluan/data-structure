@@ -11,6 +11,7 @@
                 "${workspaceFolder}/src/search/search.c",
                 "${workspaceFolder}/src/sort/sort.c",
                 "${workspaceFolder}/src/tree/BinarySearchTree.c",
+                "${workspaceFolder}/src/filter/filter.c",
                 "-o",
                 "${workspaceFolder}/out/${fileBasenameNoExtension}"
             ],

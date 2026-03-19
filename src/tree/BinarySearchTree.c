@@ -162,3 +162,101 @@ void freeBinarySearchTree(BinarySearchTree **tree) {
         *tree = NULL;
     }
 }
+
+int getNodeHeight(Node *node) {
+    if (!node) return - 1;
+    int leftHeight = getNodeHeight(node->left);
+    int rightHeight = getNodeHeight(node->right);
+    return  (leftHeight > rightHeight ? leftHeight : rightHeight) + 1;
+}
+
+#define UNBALANCED_RIGHT -2
+#define SLIGHTLY_UNBALANCED_RIGHT -1
+#define BALANCED 0
+#define SLIGHTLY_UNBALANCED_LEFT 1
+#define UNBALANCED_LEFT 2
+
+int getBalanceFactor(Node *node) {
+    return getNodeHeight(node->left) - getNodeHeight(node->right);
+}
+
+Node* rotationLL(Node *node) {
+    Node *tmp = node->left;
+    node->left = tmp->right;
+    tmp->right = node;
+    return tmp;
+}
+
+Node* rotationRR(Node *node) {
+    Node *tmp = node->right;
+    node->right = tmp->left;
+    tmp->left = node;
+    return tmp;
+}
+
+Node *rotationLR(Node *node) {
+    node->left = rotationRR(node->left);
+    return rotationLL(node);
+}
+
+Node *rotationRL(Node *node) {
+    node->right = rotationLL(node->right);
+    return rotationRR(node);
+}
+
+Node *insertNodeAVL(Node *node, int key) {
+    if (!node) return createNode(key);
+    else if (key < node->key) node->left = insertNodeAVL(node->left, key);
+    else if (key > node->key) node->right = insertNodeAVL(node->right, key);
+    else return node;
+    int balanceFactor = getBalanceFactor(node);
+    if (balanceFactor == UNBALANCED_LEFT) {
+        if (key < node->left->key) node = rotationLL(node);
+        else return rotationLR(node);
+    }
+    if (balanceFactor == UNBALANCED_RIGHT) {
+        if (key > node->right->key) node = rotationRR(node);
+        else return rotationRL(node);
+    }
+    return node;
+}
+
+void insertAVL(BinarySearchTree *tree, int key) {
+    tree->root = insertNodeAVL(tree->root, key);
+}
+
+Node *removeAVLNode(Node *node, int key) {
+    node = removeNode(node, key);
+    if (!node) return node;
+    int balanceFactor = getBalanceFactor(node);
+    if (balanceFactor == UNBALANCED_LEFT) {
+        int balanceFactorLeft = getBalanceFactor(node->left);
+        if (balanceFactorLeft == BALANCED || balanceFactor == SLIGHTLY_UNBALANCED_LEFT) return rotationLL(node);
+        if (balanceFactor == SLIGHTLY_UNBALANCED_RIGHT) return rotationLR(node->left);
+    }
+    if (balanceFactor == UNBALANCED_RIGHT) {
+        int balanceFactorRight = getNodeHeight(node->right);
+        if (balanceFactorRight == BALANCED || balanceFactor == SLIGHTLY_UNBALANCED_RIGHT) return rotationRR(node);
+        if (balanceFactorRight == SLIGHTLY_UNBALANCED_LEFT) return rotationRL(node->right);
+    }
+    return node;
+}
+
+void removeAVL(BinarySearchTree *tree, int key) {
+    tree->root = removeAVLNode(tree->root, key);
+}
+
+BinarySearchTree *createAVLTree() {
+    BinarySearchTree *tree = malloc(sizeof(BinarySearchTree));
+    if (!tree) return NULL;
+    tree->root = NULL;
+    tree->insert = insertAVL;
+    tree->inOrderTraverse = inOrderTraverse;
+    tree->preOrderTraverse = preOrderTraverse;
+    tree->postOrderTraverse = postOrderTraverse;
+    tree->min = min;
+    tree->max = max;
+    tree->search = search;
+    tree->remove = removeAVL;
+    return tree;
+}

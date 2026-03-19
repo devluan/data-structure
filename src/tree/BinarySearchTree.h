@@ -29,4 +29,6 @@ BinarySearchTree *createBinarySearchTree();
 
 void freeBinarySearchTree(BinarySearchTree **tree);
 
+BinarySearchTree *createAVLTree();
+
 #endif

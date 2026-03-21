@@ -204,10 +204,10 @@ Node *rotationRL(Node *node) {
     return rotationRR(node);
 }
 
-Node *insertNodeAVL(Node *node, int key) {
+Node *insertAVLNode(Node *node, int key) {
     if (!node) return createNode(key);
-    else if (key < node->key) node->left = insertNodeAVL(node->left, key);
-    else if (key > node->key) node->right = insertNodeAVL(node->right, key);
+    else if (key < node->key) node->left = insertAVLNode(node->left, key);
+    else if (key > node->key) node->right = insertAVLNode(node->right, key);
     else return node;
     int balanceFactor = getBalanceFactor(node);
     if (balanceFactor == UNBALANCED_LEFT) {
@@ -222,7 +222,7 @@ Node *insertNodeAVL(Node *node, int key) {
 }
 
 void insertAVL(BinarySearchTree *tree, int key) {
-    tree->root = insertNodeAVL(tree->root, key);
+    tree->root = insertAVLNode(tree->root, key);
 }
 
 Node *removeAVLNode(Node *node, int key) {
